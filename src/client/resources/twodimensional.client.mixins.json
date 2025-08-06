@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "github.mishkis.twodimensional.client.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "BlockRenderManagerMixin",
+    "GameRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}
