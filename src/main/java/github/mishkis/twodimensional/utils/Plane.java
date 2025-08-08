@@ -6,6 +6,8 @@ import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 
 public class Plane {
+    public static double CULL_DIST = -0.5;
+
     private Vec3d offset;
     private double yaw;
 

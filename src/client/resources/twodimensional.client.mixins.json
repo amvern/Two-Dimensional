@@ -4,8 +4,9 @@
   "package": "github.mishkis.twodimensional.client.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
-    "BlockMixin",
-    "WorldRendererMixin"
+    "AbstractBlockStateAccessor",
+    "AbstractBlockStateMixin",
+    "BlockMixin"
   ],
   "injectors": {
     "defaultRequire": 1
