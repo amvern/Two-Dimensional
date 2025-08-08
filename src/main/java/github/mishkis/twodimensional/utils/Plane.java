@@ -48,21 +48,21 @@ public class Plane {
 
     private void updateValues() {
         this.slope = Math.tan(yaw);
+        if (this.slope == 0) {
+            // prevent division by 0
+            this.slope += 0.00001;
+        }
         this.normal = offset.add(-Math.sin(yaw), 0, Math.cos(yaw));
     }
 
     // Positive is defined as being counter-clockwise
     public double sdf(Vec3d point) {
-        if (this.getYaw() % MathHelper.PI != 0) {
-            // slope(x - offset.x) + offset.z = (-1/slope)(x - point.x) + point.z
-            double x = (slope * offset.x - offset.z + point.x * 1 / slope + point.z) / (slope + 1 / slope);
-            double z = slope * (x - offset.x) + offset.z;
+        // slope(x - offset.x) + offset.z = (-1/slope)(x - point.x) + point.z
+        double x = (slope * offset.x - offset.z + point.x / slope + point.z) / (slope + 1 / slope);
+        double z = slope * (x - offset.x) + offset.z;
 
-            Vec3d to_point = new Vec3d(point.x - x, 0, point.z - z);
-            return to_point.length() * MathHelper.sign(to_point.dotProduct(normal));
-        } else {
-            return point.z - offset.z;
-        }
+        Vec3d to_point = new Vec3d(point.x - x, 0, point.z - z);
+        return to_point.length() * MathHelper.sign(to_point.dotProduct(normal));
     }
 
     @Override
