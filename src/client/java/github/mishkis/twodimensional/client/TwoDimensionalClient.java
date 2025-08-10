@@ -1,16 +1,18 @@
 package github.mishkis.twodimensional.client;
 
 import github.mishkis.twodimensional.TwoDimensional;
+import github.mishkis.twodimensional.client.rendering.TwoDimensionalCrosshairRenderer;
 import github.mishkis.twodimensional.client.rendering.TwoDimensionalShaders;
 import github.mishkis.twodimensional.utils.Plane;
 import ladysnake.satin.api.event.PostWorldRenderCallback;
 import ladysnake.satin.api.event.ShaderEffectRenderCallback;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
 public class TwoDimensionalClient implements ClientModInitializer {
-    public static Plane plane = new Plane(new Vec3d(0.5, 0, 0.5), 0);
+    public static Plane plane = new Plane(new Vec3d(0.5, 0, 0.5), MathHelper.PI/4);
 
     @Override
     public void onInitializeClient() {
@@ -20,5 +22,6 @@ public class TwoDimensionalClient implements ClientModInitializer {
 
         PostWorldRenderCallback.EVENT.register(TwoDimensionalShaders.INSTANCE);
         ShaderEffectRenderCallback.EVENT.register(TwoDimensionalShaders.INSTANCE);
+        TwoDimensionalCrosshairRenderer.intialize();
     }
 }

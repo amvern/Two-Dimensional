@@ -6,7 +6,7 @@
   },
   "vertex": "two_dimensional:fog",
   "fragment": "two_dimensional:fog",
-  "attributes": [ "Position", "UV2" ],
+  "attributes": [ "Position" ],
   "samplers": [
     { "name": "DiffuseSampler" },
     { "name": "DepthSampler" }

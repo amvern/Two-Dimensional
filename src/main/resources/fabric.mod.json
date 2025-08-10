@@ -31,7 +31,8 @@
   },
   "custom": {
     "loom:injected_interfaces": {
-      "net/minecraft/class_3609": ["java/github/mishkis/twodimensional/utils/EntityPlaneGetterSetter"]
+      "net.minecraft.class_312": ["java/github/mishkis/twodimensional/duck_interface/MouseNormalizedGetter"],
+      "net/minecraft/class_3609": ["java/github/mishkis/twodimensional/duck_interface/EntityPlaneGetterSetter"]
     }
   }
 }

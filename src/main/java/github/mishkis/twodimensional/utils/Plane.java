@@ -67,6 +67,13 @@ public class Plane {
         return to_point.length() * MathHelper.sign(to_point.dotProduct(normal));
     }
 
+    public Vec3d intersectPoint(Vec3d point) {
+        double x = (slope * offset.x - offset.z + point.x / slope + point.z) / (slope + 1 / slope);
+        double z = slope * (x - offset.x) + offset.z;
+
+        return new Vec3d(x, 0., z);
+    }
+
     @Override
     public String toString() {
         return "Plane{" +
