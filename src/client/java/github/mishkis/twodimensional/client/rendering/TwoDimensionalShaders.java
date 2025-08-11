@@ -14,8 +14,10 @@ import ladysnake.satin.api.util.GlMatrices;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.Camera;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BlockItem;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 import org.joml.Matrix4f;
@@ -45,32 +47,39 @@ public class TwoDimensionalShaders implements PostWorldRenderCallback, ShaderEff
 
     @Override
     public void onWorldRendered(Camera camera, float tickDelta, long nanoTime) {
-        uniformInverseTransformMatrix.set(GlMatrices.getInverseTransformMatrix(projectionMatrix));
-
-        uniformCameraPos.set(camera.getPos().toVector3f());
-
         Plane plane = TwoDimensionalClient.plane;
         if (plane != null) {
+            uniformInverseTransformMatrix.set(GlMatrices.getInverseTransformMatrix(projectionMatrix));
+
+            uniformCameraPos.set(camera.getPos().toVector3f());
+
             uniformPlaneOffset.set(plane.getOffset().toVector3f());
             uniformPlaneSlope.set((float) plane.getSlope());
             uniformPlaneNormal.set(plane.getNormal().toVector3f());
+
+            float[] fogColor = RenderSystem.getShaderFogColor();
+            uniformSkyColor.set(fogColor[0], fogColor[1], fogColor[2]);
+
+            World world = MinecraftClient.getInstance().world;
+            PlayerEntity player = MinecraftClient.getInstance().player;
+            Vector2f targetLightLevel = new Vector2f(world.getLightLevel(LightType.BLOCK, player.getBlockPos()), world.getLightLevel(LightType.SKY, player.getBlockPos()));
+            player.getHandItems().forEach(itemStack -> {
+                if (itemStack.getItem() instanceof BlockItem blockItem) {
+                    targetLightLevel.x = Math.max(targetLightLevel.x, MathHelper.clamp(blockItem.getBlock().getDefaultState().getLuminance(), 0f, 10f));
+                }
+            });
+
+            lightLevel = lightLevel.lerp(targetLightLevel, 0.2f);
+            uniformLightLevel.set(lightLevel);
+
+            uniformPlayerPos.set(player.getPos().toVector3f());
         }
-
-        float[] fogColor = RenderSystem.getShaderFogColor();
-        uniformSkyColor.set(fogColor[0], fogColor[1], fogColor[2]);
-
-        World world = MinecraftClient.getInstance().world;
-        PlayerEntity player = MinecraftClient.getInstance().player;
-        lightLevel = lightLevel.lerp(new Vector2f(world.getLightLevel(LightType.BLOCK, player.getBlockPos()), world.getLightLevel(LightType.SKY, player.getBlockPos())), 0.2f);
-        uniformLightLevel.set(lightLevel);
-
-        uniformPlayerPos.set(player.getPos().toVector3f());
-
-        PLANE_SHADERS.render(tickDelta);
     }
 
     @Override
     public void renderShaderEffects(float tickDelta) {
-        PLANE_SHADERS.render(tickDelta);
+        if (TwoDimensionalClient.plane != null) {
+            PLANE_SHADERS.render(tickDelta);
+        }
     }
 }
