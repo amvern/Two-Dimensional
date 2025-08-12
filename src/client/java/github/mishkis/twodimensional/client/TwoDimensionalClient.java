@@ -26,6 +26,8 @@ public class TwoDimensionalClient implements ClientModInitializer {
         ClientPlayNetworking.registerGlobalReceiver(TwoDimensional.PLANE_SYNC, ((minecraftClient, clientPlayNetworkHandler, packetByteBuf, packetSender) -> {
             plane = new Plane(new Vec3d(packetByteBuf.readDouble(), 0, packetByteBuf.readDouble()), packetByteBuf.readDouble());
             shouldUpdatePlane = true;
+
+            MinecraftClient.getInstance().mouse.unlockCursor();
         }));
         ClientPlayNetworking.registerGlobalReceiver(TwoDimensional.PLANE_REMOVE, ((minecraftClient, clientPlayNetworkHandler, packetByteBuf, packetSender) -> {
             plane =  null;
