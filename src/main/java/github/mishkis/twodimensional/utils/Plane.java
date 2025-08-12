@@ -1,6 +1,7 @@
 package github.mishkis.twodimensional.utils;
 
 import net.minecraft.network.encryption.ClientPlayerSession;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
@@ -70,7 +71,15 @@ public class Plane {
         double x = (slope * offset.x - offset.z + point.x / slope + point.z) / (slope + 1 / slope);
         double z = slope * (x - offset.x) + offset.z;
 
-        return new Vec3d(x, 0., z);
+        return new Vec3d(x, point.y, z);
+    }
+
+    public static boolean shouldCull(BlockPos blockPos, Plane plane) {
+        if (plane != null) {
+            double dist = plane.sdf(blockPos.toCenterPos());
+            return dist <= Plane.CULL_DIST || dist > 32;
+        }
+        return false;
     }
 
     @Override
