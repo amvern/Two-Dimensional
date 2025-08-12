@@ -13,6 +13,7 @@ import net.minecraft.util.math.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
@@ -39,5 +40,10 @@ public class WorldRendererMixin {
         if (Plane.shouldCull(pos, TwoDimensionalClient.plane)) {
             ci.cancel();
         }
+    }
+
+    @ModifyVariable(method = "collectRenderableChunks", at = @At("HEAD"), argsOnly = true)
+    private boolean disableChunkCulling(boolean value) {
+        return value && TwoDimensionalClient.plane == null;
     }
 }

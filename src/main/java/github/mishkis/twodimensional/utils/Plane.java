@@ -62,7 +62,7 @@ public class Plane {
             this.slope = 0.0000001;
         }
 
-        this.slope = MathHelper.clamp(slope, -99999, 99999);
+        this.slope = MathHelper.clamp(slope, -99, 99);
 
         this.normal = new Vec3d(-Math.sin(yaw), 0, Math.cos(yaw));
     }

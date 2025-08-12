@@ -1,7 +1,6 @@
 package github.mishkis.twodimensional.client.mixin;
 
 import github.mishkis.twodimensional.client.TwoDimensionalClient;
-import github.mishkis.twodimensional.mixin.AbstractBlockStateAccessor;
 import github.mishkis.twodimensional.utils.Plane;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -34,11 +33,6 @@ public abstract class BlockMixin {
         BlockState blockState = world.getBlockState(pos.offset(side));
         if (!blockState.isFullCube(world, pos.offset(side))) {
             cir.setReturnValue(true);
-            return;
-        }
-
-        if (((AbstractBlockStateAccessor) blockState).getOpaque()) {
-            cir.setReturnValue(false);
         }
     }
 }
