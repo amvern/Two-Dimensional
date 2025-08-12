@@ -6,6 +6,7 @@
   "mixins": [
     "AbstractBlockStateAccessor",
     "EntityMixin",
+    "PlayerEntityMixin",
     "SpreadableBlockMixin"
   ],
   "injectors": {

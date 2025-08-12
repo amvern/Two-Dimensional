@@ -1,4 +1,4 @@
-package github.mishkis.twodimensional.client.mixin;
+package github.mishkis.twodimensional.mixin;
 
 import net.minecraft.block.AbstractBlock;
 import org.spongepowered.asm.mixin.Mixin;
