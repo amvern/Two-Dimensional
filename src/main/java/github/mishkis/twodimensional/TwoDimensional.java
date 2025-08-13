@@ -83,7 +83,7 @@ public class TwoDimensional implements ModInitializer {
 
         CommandRegistrationCallback.EVENT.register(((commandDispatcher, commandRegistryAccess, registrationEnvironment) -> {
             if (registrationEnvironment.integrated) {
-                commandDispatcher.register(CommandManager.literal("TwoDimensional").
+                commandDispatcher.register(CommandManager.literal("twoDimensional").
                         then(CommandManager.literal("default").executes(commandContext -> {
                             ServerPlayerEntity player = commandContext.getSource().getPlayer();
                             if (player != null) {

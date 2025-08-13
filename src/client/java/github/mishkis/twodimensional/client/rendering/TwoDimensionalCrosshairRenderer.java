@@ -11,7 +11,8 @@ public class TwoDimensionalCrosshairRenderer {
         HudRenderCallback.EVENT.register(((drawContext, tickDelta) -> {
             if (TwoDimensionalClient.plane != null) {
                 Mouse mouse = MinecraftClient.getInstance().mouse;
-                drawContext.drawTexture(new Identifier("textures/gui/icons.png"), (int) (mouse.getX()/2) - 6, (int) (mouse.getY()/2) - 5, 0, 0, 15, 15);
+                int scaleFactor = MinecraftClient.getInstance().getWindow().getWidth()/drawContext.getScaledWindowWidth();
+                drawContext.drawTexture(new Identifier("textures/gui/icons.png"), (int) (mouse.getX()/scaleFactor) - 6, (int) (mouse.getY()/scaleFactor) - 5, 0, 0, 15, 15);
             }
         }));
     }
