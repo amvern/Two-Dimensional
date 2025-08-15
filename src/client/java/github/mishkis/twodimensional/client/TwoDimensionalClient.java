@@ -9,15 +9,22 @@ import ladysnake.satin.api.event.PostWorldRenderCallback;
 import ladysnake.satin.api.event.ShaderEffectRenderCallback;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.WorldRenderer;
+import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.option.StickyKeyBinding;
 import net.minecraft.client.util.InputUtil;
-import net.minecraft.client.util.Window;
 import net.minecraft.util.math.Vec3d;
+import org.lwjgl.glfw.GLFW;
 
 public class TwoDimensionalClient implements ClientModInitializer {
     public static Plane plane = null;
+    public static KeyBinding turnedAround = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+            "key.twodimensional.turn_around",
+            GLFW.GLFW_KEY_B,
+            "keyGroup.twodimensional"
+    ));
 
     private boolean shouldUpdatePlane = true;
 

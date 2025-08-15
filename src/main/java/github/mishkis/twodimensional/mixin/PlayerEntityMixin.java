@@ -24,8 +24,12 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Inject(method = "isBlockBreakingRestricted", at = @At("HEAD"), cancellable = true)
     private void disableBlockBreakingOutsidePlane(World world, BlockPos pos, GameMode gameMode, CallbackInfoReturnable<Boolean> cir) {
-        if (Plane.shouldCull(pos, ((EntityPlaneGetterSetter) this).twoDimensional$getPlane())) {
-            cir.setReturnValue(true);
+        Plane plane = ((EntityPlaneGetterSetter) this).twoDimensional$getPlane();
+        if (plane != null) {
+            double dist = plane.sdf(pos.toCenterPos());
+            if (dist <= Plane.CULL_DIST || dist >= 1.8) {
+                cir.setReturnValue(true);
+            }
         }
     }
 

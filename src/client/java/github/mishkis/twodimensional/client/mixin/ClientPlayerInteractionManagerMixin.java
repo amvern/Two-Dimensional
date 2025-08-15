@@ -16,8 +16,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class ClientPlayerInteractionManagerMixin {
     @Inject(method = "interactBlock", at = @At("HEAD"), cancellable = true)
     private void disableInteractionOutsidePlane(ClientPlayerEntity player, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir) {
-        if (Plane.shouldCull(hitResult.getBlockPos(), TwoDimensionalClient.plane)) {
-            cir.setReturnValue(ActionResult.FAIL);
+        Plane plane = TwoDimensionalClient.plane;
+        if (plane != null) {
+            double dist = plane.sdf(hitResult.getBlockPos().toCenterPos());
+            if (dist <= Plane.CULL_DIST || dist >= 1.8) {
+                cir.setReturnValue(ActionResult.FAIL);
+            }
         }
     }
 }

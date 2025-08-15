@@ -1,5 +1,6 @@
 package github.mishkis.twodimensional.client.mixin;
 
+import github.mishkis.twodimensional.client.TwoDimensionalClient;
 import github.mishkis.twodimensional.duck_interface.EntityPlaneGetterSetter;
 import github.mishkis.twodimensional.duck_interface.MouseNormalizedGetter;
 import github.mishkis.twodimensional.utils.Plane;
@@ -40,7 +41,12 @@ public abstract class EntityMixin implements EntityPlaneGetterSetter {
             float pitch = (float) (MathHelper.atan2(-mouse.twoDimensional$getNormalizedY() * 0.60, Math.abs(mouse.twoDimensional$getNormalizedX())) * MathHelper.DEGREES_PER_RADIAN);
             this.setPitch(MathHelper.clamp(pitch, -90, 90));
 
-            this.setYaw((float) MathHelper.lerp(MathHelper.clamp(7 * mouse.twoDimensional$getNormalizedX() + 0.5, 0, 1), plane.getYaw() * MathHelper.DEGREES_PER_RADIAN + 90, plane.getYaw() * MathHelper.DEGREES_PER_RADIAN + 270));
+            double base = plane.getYaw() * MathHelper.DEGREES_PER_RADIAN;
+            if (TwoDimensionalClient.turnedAround.isPressed()) {
+                this.setYaw((float) MathHelper.lerp(MathHelper.clamp(3. * mouse.twoDimensional$getNormalizedX() + 0.5, 0, 1), base + 90, base - 90));
+            } else {
+                this.setYaw((float) MathHelper.lerp(MathHelper.clamp(7 * mouse.twoDimensional$getNormalizedX() + 0.5, 0, 1), base + 90, base + 270));
+            }
 
             if (this.vehicle != null) {
                 this.vehicle.onPassengerLookAround((Entity) (Object) this);
