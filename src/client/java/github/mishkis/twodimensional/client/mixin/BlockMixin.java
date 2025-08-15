@@ -29,10 +29,10 @@ public abstract class BlockMixin {
                 }
             }
         }
-
-        BlockState blockState = world.getBlockState(pos.offset(side));
-        if (!blockState.isFullCube(world, pos.offset(side))) {
-            cir.setReturnValue(true);
-        }
+//
+//        BlockState blockState = world.getBlockState(pos.offset(side));
+//        if (!blockState.isFullCube(world, pos.offset(side))) {
+//            cir.setReturnValue(true);
+//        }
     }
 }
