@@ -2,9 +2,8 @@ package github.mishkis.twodimensional.mixin;
 
 import com.mojang.authlib.GameProfile;
 import github.mishkis.twodimensional.TwoDimensional;
-import github.mishkis.twodimensional.duck_interface.EntityPlaneGetterSetter;
+import github.mishkis.twodimensional.access.EntityPlaneGetterSetter;
 import github.mishkis.twodimensional.utils.Plane;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;

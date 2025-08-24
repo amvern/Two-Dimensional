@@ -1,6 +1,6 @@
 package github.mishkis.twodimensional.mixin;
 
-import github.mishkis.twodimensional.duck_interface.EntityPlaneGetterSetter;
+import github.mishkis.twodimensional.access.EntityPlaneGetterSetter;
 import github.mishkis.twodimensional.utils.Plane;
 import net.minecraft.network.packet.s2c.play.PositionFlag;
 import net.minecraft.server.network.ServerPlayNetworkHandler;

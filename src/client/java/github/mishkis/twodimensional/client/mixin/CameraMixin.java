@@ -1,8 +1,7 @@
 package github.mishkis.twodimensional.client.mixin;
 
-import github.mishkis.twodimensional.TwoDimensional;
 import github.mishkis.twodimensional.client.TwoDimensionalClient;
-import github.mishkis.twodimensional.duck_interface.MouseNormalizedGetter;
+import github.mishkis.twodimensional.client.access.MouseNormalizedGetter;
 import github.mishkis.twodimensional.utils.Plane;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.Camera;

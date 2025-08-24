@@ -3,7 +3,7 @@ package github.mishkis.twodimensional.client;
 import github.mishkis.twodimensional.TwoDimensional;
 import github.mishkis.twodimensional.client.rendering.TwoDimensionalCrosshairRenderer;
 import github.mishkis.twodimensional.client.rendering.TwoDimensionalShaders;
-import github.mishkis.twodimensional.duck_interface.EntityPlaneGetterSetter;
+import github.mishkis.twodimensional.access.EntityPlaneGetterSetter;
 import github.mishkis.twodimensional.utils.Plane;
 import ladysnake.satin.api.event.PostWorldRenderCallback;
 import ladysnake.satin.api.event.ShaderEffectRenderCallback;
@@ -13,8 +13,6 @@ import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.option.StickyKeyBinding;
-import net.minecraft.client.util.InputUtil;
 import net.minecraft.util.math.Vec3d;
 import org.lwjgl.glfw.GLFW;
 

@@ -1,8 +1,7 @@
 package github.mishkis.twodimensional.client.mixin;
 
 import github.mishkis.twodimensional.client.TwoDimensionalClient;
-import github.mishkis.twodimensional.duck_interface.EntityPlaneGetterSetter;
-import github.mishkis.twodimensional.duck_interface.MouseNormalizedGetter;
+import github.mishkis.twodimensional.client.access.MouseNormalizedGetter;
 import github.mishkis.twodimensional.utils.Plane;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
@@ -10,13 +9,12 @@ import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Entity.class)
-public abstract class EntityMixin implements EntityPlaneGetterSetter {
+public abstract class EntityMixin {
     @Shadow private @Nullable Entity vehicle;
     @Shadow public float prevPitch;
 
@@ -32,7 +30,7 @@ public abstract class EntityMixin implements EntityPlaneGetterSetter {
 
     @Inject(method = "changeLookDirection", at = @At("HEAD"), cancellable = true)
     public void changeLookDirection(double cursorDeltaX, double cursorDeltaY, CallbackInfo ci) {
-        Plane plane = twoDimensional$getPlane();
+        Plane plane = TwoDimensionalClient.plane;
         if (plane != null) {
             this.prevPitch = this.getPitch();
             this.prevYaw = this.getYaw();

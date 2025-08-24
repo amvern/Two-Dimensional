@@ -2,7 +2,7 @@ package github.mishkis.twodimensional.client.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import github.mishkis.twodimensional.client.TwoDimensionalClient;
-import github.mishkis.twodimensional.duck_interface.MouseNormalizedGetter;
+import github.mishkis.twodimensional.client.access.MouseNormalizedGetter;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.input.Input;
 import net.minecraft.client.network.ClientPlayerEntity;

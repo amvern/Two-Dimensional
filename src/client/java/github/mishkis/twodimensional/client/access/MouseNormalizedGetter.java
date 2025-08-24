@@ -1,4 +1,4 @@
-package github.mishkis.twodimensional.duck_interface;
+package github.mishkis.twodimensional.client.access;
 
 public interface MouseNormalizedGetter {
     default double twoDimensional$getNormalizedX() { return 0d; }

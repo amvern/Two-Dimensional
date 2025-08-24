@@ -1,14 +1,11 @@
 package github.mishkis.twodimensional.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import github.mishkis.twodimensional.TwoDimensional;
-import github.mishkis.twodimensional.duck_interface.EntityPlaneGetterSetter;
+import github.mishkis.twodimensional.access.EntityPlaneGetterSetter;
 import github.mishkis.twodimensional.utils.Plane;
 import github.mishkis.twodimensional.utils.PlanePersistentState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;

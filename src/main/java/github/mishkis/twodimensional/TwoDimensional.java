@@ -1,7 +1,7 @@
 package github.mishkis.twodimensional;
 
 import com.mojang.brigadier.arguments.DoubleArgumentType;
-import github.mishkis.twodimensional.duck_interface.EntityPlaneGetterSetter;
+import github.mishkis.twodimensional.access.EntityPlaneGetterSetter;
 import github.mishkis.twodimensional.utils.Plane;
 import github.mishkis.twodimensional.utils.PlanePersistentState;
 import net.fabricmc.api.ModInitializer;
