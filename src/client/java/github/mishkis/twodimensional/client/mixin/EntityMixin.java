@@ -5,6 +5,7 @@ import github.mishkis.twodimensional.client.access.MouseNormalizedGetter;
 import github.mishkis.twodimensional.utils.Plane;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -12,6 +13,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Entity.class)
 public abstract class EntityMixin {
@@ -27,6 +29,8 @@ public abstract class EntityMixin {
     @Shadow public abstract void setPitch(float pitch);
 
     @Shadow public abstract void setYaw(float yaw);
+
+    @Shadow public abstract BlockPos getBlockPos();
 
     @Inject(method = "changeLookDirection", at = @At("HEAD"), cancellable = true)
     public void changeLookDirection(double cursorDeltaX, double cursorDeltaY, CallbackInfo ci) {
@@ -52,5 +56,10 @@ public abstract class EntityMixin {
 
             ci.cancel();
         }
+    }
+
+    @Inject(method = "shouldRender(DDD)Z", at = @At("HEAD"), cancellable = true)
+    public void disableRenderingOutsidePlane(CallbackInfoReturnable<Boolean> cir) {
+        cir.setReturnValue(!Plane.shouldCull(this.getBlockPos(), TwoDimensionalClient.plane));
     }
 }
