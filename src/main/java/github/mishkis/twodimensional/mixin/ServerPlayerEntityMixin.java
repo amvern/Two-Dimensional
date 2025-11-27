@@ -38,7 +38,7 @@ public abstract class ServerPlayerEntityMixin extends Player {
         }
     }
 
-    @ModifyArgs(method = "fudgeSpawnLocation", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/PlayerRespawnLogic;getOverworldRespawnPos(Lnet/minecraft/server/level/ServerLevel;II)Lnet/minecraft/core/BlockPos;"))
+    @ModifyArgs(method = "adjustSpawnLocation", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/PlayerRespawnLogic;getOverworldRespawnPos(Lnet/minecraft/server/level/ServerLevel;II)Lnet/minecraft/core/BlockPos;"))
     private void clampSpawnXZ(Args args) {
         Plane plane = ((EntityPlaneGetterSetter) this).twoDimensional$getPlane();
         if (plane != null) {

@@ -18,32 +18,32 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-@Mixin(LevelRenderer.class)
-public class WorldRendererMixin {
-    @ModifyExpressionValue(
-            method = "renderLevel",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/chunk/ChunkRenderDispatcher$CompiledChunk;getRenderableBlockEntities()Ljava/util/List;")
-    )
-    private List<BlockEntity> cullBlockEntites(List<BlockEntity> original) {
-        Plane plane = TwoDimensionalClient.plane;
-        if (plane != null) {
-            original = original.stream().filter(blockEntity ->
-                    !Plane.shouldCull(blockEntity.getBlockPos(), plane))
-                    .toList();
-        }
-
-        return original;
-    }
-
-    @Inject(method = "renderHitOutline", at = @At(value = "HEAD"), cancellable = true)
-    private void disableCulledBlockOutline(PoseStack matrices, VertexConsumer vertexConsumer, Entity entity, double cameraX, double cameraY, double cameraZ, BlockPos pos, BlockState state, CallbackInfo ci) {
-        if (Plane.shouldCull(pos, TwoDimensionalClient.plane)) {
-            ci.cancel();
-        }
-    }
-
-    @ModifyVariable(method = "updateRenderChunks", at = @At("HEAD"), argsOnly = true)
-    private boolean disableChunkCulling(boolean value) {
-        return value && TwoDimensionalClient.plane == null;
-    }
-}
+//@Mixin(LevelRenderer.class)
+//public class WorldRendererMixin {
+//    @ModifyExpressionValue(
+//            method = "renderLevel",
+//            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/chunk/ChunkRenderDispatcher$CompiledChunk;getRenderableBlockEntities()Ljava/util/List;")
+//    )
+//    private List<BlockEntity> cullBlockEntites(List<BlockEntity> original) {
+//        Plane plane = TwoDimensionalClient.plane;
+//        if (plane != null) {
+//            original = original.stream().filter(blockEntity ->
+//                    !Plane.shouldCull(blockEntity.getBlockPos(), plane))
+//                    .toList();
+//        }
+//
+//        return original;
+//    }
+//
+//    @Inject(method = "renderHitOutline", at = @At(value = "HEAD"), cancellable = true)
+//    private void disableCulledBlockOutline(PoseStack matrices, VertexConsumer vertexConsumer, Entity entity, double cameraX, double cameraY, double cameraZ, BlockPos pos, BlockState state, CallbackInfo ci) {
+//        if (Plane.shouldCull(pos, TwoDimensionalClient.plane)) {
+//            ci.cancel();
+//        }
+//    }
+//
+//    @ModifyVariable(method = "collectRenderableChunks", at = @At("HEAD"), argsOnly = true)
+//    private boolean disableChunkCulling(boolean value) {
+//        return value && TwoDimensionalClient.plane == null;
+//    }
+//}

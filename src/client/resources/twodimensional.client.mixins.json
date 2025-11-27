@@ -14,8 +14,7 @@
     "GameOptionsMixin",
     "InputMixin",
     "MouseMixin",
-    "TerrainRenderContextMixin",
-    "WorldRendererMixin"
+    "TerrainRenderContextMixin"
   ],
   "injectors": {
     "defaultRequire": 1

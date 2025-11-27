@@ -4,6 +4,7 @@ import github.mishkis.twodimensional.client.TwoDimensionalClient;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.MouseHandler;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 
 public class TwoDimensionalCrosshairRenderer {
@@ -12,7 +13,7 @@ public class TwoDimensionalCrosshairRenderer {
             if (TwoDimensionalClient.plane != null) {
                 MouseHandler mouse = Minecraft.getInstance().mouseHandler;
                 int scaleFactor = Minecraft.getInstance().getWindow().getWidth()/guiGraphics.guiWidth();
-                guiGraphics.blit(new ResourceLocation("textures/gui/icons.png"), (int) (mouse.xpos()/scaleFactor) - 6, (int) (mouse.ypos()/scaleFactor) - 5, 0, 0, 15, 15);
+                guiGraphics.blit(ResourceLocation.withDefaultNamespace("textures/gui/sprites/hud/crosshair.png"), (int) (mouse.xpos()/scaleFactor) - 6, (int) (mouse.ypos()/scaleFactor) - 5, 0, 0, 15, 15, 15, 15);
             }
         }));
     }
