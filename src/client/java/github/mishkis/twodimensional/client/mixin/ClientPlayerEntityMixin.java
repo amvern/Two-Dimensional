@@ -3,32 +3,32 @@ package github.mishkis.twodimensional.client.mixin;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import github.mishkis.twodimensional.client.TwoDimensionalClient;
 import github.mishkis.twodimensional.client.access.MouseNormalizedGetter;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.input.Input;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.Input;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(ClientPlayerEntity.class)
+@Mixin(LocalPlayer.class)
 public abstract class ClientPlayerEntityMixin extends Entity {
     @Shadow public Input input;
 
-    @Shadow @Final protected MinecraftClient client;
+    @Shadow @Final protected Minecraft minecraft;
 
-    public ClientPlayerEntityMixin(EntityType<?> type, World world) {
+    public ClientPlayerEntityMixin(EntityType<?> type, Level world) {
         super(type, world);
     }
 
-    @ModifyReturnValue(method = "isWalking", at = @At("RETURN"))
+    @ModifyReturnValue(method = "hasEnoughImpulseToStartSprinting", at = @At("RETURN"))
     private boolean countSidewaysMovementOnPlane(boolean original) {
         if (TwoDimensionalClient.plane != null) {
-            return original || this.input.movementSideways * MathHelper.sign(((MouseNormalizedGetter) client.mouse).twoDimensional$getNormalizedX()) >= 0.8;
+            return original || this.input.leftImpulse * Mth.sign(((MouseNormalizedGetter) minecraft.mouseHandler).twoDimensional$getNormalizedX()) >= 0.8;
         }
 
         return original;
