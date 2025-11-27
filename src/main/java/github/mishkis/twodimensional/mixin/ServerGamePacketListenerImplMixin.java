@@ -17,13 +17,13 @@ import net.minecraft.world.entity.RelativeMovement;
 import net.minecraft.world.phys.Vec3;
 
 @Mixin(ServerGamePacketListenerImpl.class)
-public class ServerPlayNetworkHandlerMixin {
+public class ServerGamePacketListenerImplMixin {
     @Shadow public ServerPlayer player;
     @Unique
     Vec3 TwoDimensional$intersectPoint;
 
     // this is kinda jank
-    //TODO: implement mojang mappings
+    //TODO: convert to mojmaps
 //    @Inject(method = "requestTeleport(DDDFFLjava/util/Set;)V", at = @At("HEAD"))
 //    private void clampInput(double x, double y, double z, float yaw, float pitch, Set<RelativeMovement> flags, CallbackInfo ci) {
 //        Plane plane = ((EntityPlaneGetterSetter) this.player).twoDimensional$getPlane();

@@ -1,26 +1,17 @@
 package github.mishkis.twodimensional.client;
 
-import com.mojang.authlib.minecraft.client.MinecraftClient;
 import github.mishkis.twodimensional.TwoDimensional;
-//import github.mishkis.twodimensional.client.rendering.TwoDimensionalCrosshairRenderer;
-//import github.mishkis.twodimensional.client.rendering.TwoDimensionalShaders;
 import github.mishkis.twodimensional.access.EntityPlaneGetterSetter;
 import github.mishkis.twodimensional.client.rendering.TwoDimensionalCrosshairRenderer;
 import github.mishkis.twodimensional.utils.Plane;
-//import ladysnake.satin.api.event.PostWorldRenderCallback;
-//import ladysnake.satin.api.event.ShaderEffectRenderCallback;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.phys.Vec3;
 import org.lwjgl.glfw.GLFW;
-import net.minecraft.network.FriendlyByteBuf;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 
 
 public class TwoDimensionalClient implements ClientModInitializer {
@@ -35,38 +26,7 @@ public class TwoDimensionalClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-//        ClientPlayNetworking.registerGlobalReceiver(TwoDimensional.PLANE_SYNC, ((minecraftClient, clientPlayNetworkHandler, packetByteBuf, packetSender) -> {
-//            plane = new Plane(new Vec3(packetByteBuf.readDouble(), 0, packetByteBuf.readDouble()), packetByteBuf.readDouble());
-//            shouldUpdatePlane = true;
-//
-//            Minecraft.getInstance().mouseHandler.releaseMouse();;
-//        }));
-//        ClientPlayNetworking.registerGlobalReceiver(TwoDimensional.PLANE_REMOVE, ((minecraftClient, clientPlayNetworkHandler, packetByteBuf, packetSender) -> {
-//            plane =  null;
-//            shouldUpdatePlane = true;
-//
-//            Minecraft.getInstance().mouseHandler.releaseMouse();;
-//        }));
-//        PayloadTypeRegistry.playS2C().register(
-//                TwoDimensional.PlaneSyncPayload.TYPE,
-//                TwoDimensional.PlaneSyncPayload.CODEC
-//        );
 
-//        ClientPlayNetworking.registerGlobalReceiver(TwoDimensional.PlaneSyncPayload.TYPE, (payload, ctx) -> {
-//            // payload is already a PlaneSyncPayload
-//            plane = new Plane(new Vec3(payload.x(), 0, payload.z()), payload.yaw());
-//        });
-
-//        ClientPlayNetworking.registerGlobalReceiver(TwoDimensional.PlaneSyncPayload.TYPE,
-//                (payload, context) -> {
-//                    Minecraft.getInstance().execute(() -> {
-//                        TwoDimensionalClient.plane = new Plane(
-//                                new Vec3(payload.x(), 0, payload.z()),
-//                                payload.yaw()
-//                        );
-//                    });
-//                }
-//        );
         ClientPlayNetworking.registerGlobalReceiver(
                 TwoDimensional.PlaneSyncPayload.TYPE,
                 (payload, ctx) -> {
@@ -76,12 +36,10 @@ public class TwoDimensionalClient implements ClientModInitializer {
                                 payload.yaw()
                         );
                     });
+                    shouldUpdatePlane = true;
+                    Minecraft.getInstance().mouseHandler.releaseMouse();
                 }
         );
-
-
-
-
 
         ClientTickEvents.START_CLIENT_TICK.register((client -> {
             if (shouldUpdatePlane && client.player != null) {
@@ -93,6 +51,7 @@ public class TwoDimensionalClient implements ClientModInitializer {
             }
         }));
 
+        //TODO: re-enable shader registry
         //PostWorldRenderCallback.EVENT.register(TwoDimensionalShaders.INSTANCE);
         //ShaderEffectRenderCallback.EVENT.register(TwoDimensionalShaders.INSTANCE);
         TwoDimensionalCrosshairRenderer.intialize();

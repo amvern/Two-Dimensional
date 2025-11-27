@@ -40,21 +40,6 @@ public class PlanePersistentState extends SavedData {
         return nbt;
     }
 
-//    public static PlanePersistentState createFromNbt(CompoundTag nbt) {
-//        PlanePersistentState state = new PlanePersistentState();
-//
-//        CompoundTag playersNbt = nbt.getCompound("players");
-//        playersNbt.getAllKeys().forEach(key -> {
-//            Plane plane = new Plane(
-//                    new Vec3(playersNbt.getCompound(key).getDouble("offset.x"), 0, playersNbt.getCompound(key).getDouble("offset.z")),
-//                    playersNbt.getCompound(key).getDouble("yaw")
-//            );
-//
-//            state.players.put(UUID.fromString(key), plane);
-//        });
-//
-//        return state;
-//    }
     public static PlanePersistentState createFromNbt(CompoundTag nbt, HolderLookup.Provider provider) {
         PlanePersistentState state = new PlanePersistentState();
         CompoundTag playersNbt = nbt.getCompound("players");
@@ -77,13 +62,11 @@ public class PlanePersistentState extends SavedData {
     public static PlanePersistentState getServerState(MinecraftServer server) {
         DimensionDataStorage persistentStateManager = server.getLevel(Level.OVERWORLD).getDataStorage();
 
-//        PlanePersistentState state = persistentStateManager.computeIfAbsent(PlanePersistentState::createFromNbt, PlanePersistentState::createNew, TwoDimensional.MOD_ID);
-
         PlanePersistentState state = persistentStateManager.computeIfAbsent(
                 new SavedData.Factory<>(
-                        PlanePersistentState::createNew, // Supplier<T> for new instance
-                        PlanePersistentState::createFromNbt, // BiFunction<CompoundTag, Provider, T>
-                        DataFixTypes.SAVED_DATA_FORCED_CHUNKS // type
+                        PlanePersistentState::createNew,
+                        PlanePersistentState::createFromNbt,
+                        DataFixTypes.SAVED_DATA_FORCED_CHUNKS
                 ),
                 TwoDimensional.MOD_ID
         );
@@ -104,11 +87,5 @@ public class PlanePersistentState extends SavedData {
         PlanePersistentState serverState = getServerState(player.level().getServer());
 
         serverState.players.put(player.getUUID(), new Plane(new Vec3(x, 0, z), yaw));
-    }
-
-    public static void removePlayerPlane(Player player) {
-        PlanePersistentState serverState = getServerState(player.level().getServer());
-
-        serverState.players.remove(player.getUUID());
     }
 }

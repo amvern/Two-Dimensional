@@ -16,12 +16,12 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(LocalPlayer.class)
-public abstract class ClientPlayerEntityMixin extends Entity {
+public abstract class LocalPlayerMixin extends Entity {
     @Shadow public Input input;
 
     @Shadow @Final protected Minecraft minecraft;
 
-    public ClientPlayerEntityMixin(EntityType<?> type, Level world) {
+    public LocalPlayerMixin(EntityType<?> type, Level world) {
         super(type, world);
     }
 

@@ -18,6 +18,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
+//TODO: fix WorldRendererMixin, this is why you can see block outlines in culled chunks and potential block entity / culling problems
 //@Mixin(LevelRenderer.class)
 //public class WorldRendererMixin {
 //    @ModifyExpressionValue(

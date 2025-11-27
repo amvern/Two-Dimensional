@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(MultiPlayerGameMode.class)
-public class ClientPlayerInteractionManagerMixin {
+public class MultiPlayerGameModeMixin {
     @Inject(method = "useItemOn", at = @At("HEAD"), cancellable = true)
     private void disableInteractionOutsidePlane(LocalPlayer player, InteractionHand hand, BlockHitResult hitResult, CallbackInfoReturnable<InteractionResult> cir) {
         Plane plane = TwoDimensionalClient.plane;

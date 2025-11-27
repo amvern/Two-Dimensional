@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Options.class)
-public class GameOptionsMixin {
+public class OptionsMixin {
     @Inject(method = "getCameraType", at = @At("HEAD"), cancellable = true)
     public void getCameraType(CallbackInfoReturnable<CameraType> cir) {
         if (TwoDimensionalClient.plane != null) {

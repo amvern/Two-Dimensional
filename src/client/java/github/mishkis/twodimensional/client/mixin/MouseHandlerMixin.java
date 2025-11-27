@@ -18,7 +18,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.MouseHandler;
 
 @Mixin(MouseHandler.class)
-public class MouseMixin implements MouseNormalizedGetter {
+public class MouseHandlerMixin implements MouseNormalizedGetter {
     @Shadow @Final private Minecraft minecraft;
     @Shadow private double xpos;
     @Shadow private double ypos;

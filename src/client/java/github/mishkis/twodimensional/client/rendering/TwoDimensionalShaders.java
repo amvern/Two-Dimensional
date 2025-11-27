@@ -22,6 +22,7 @@ import net.minecraft.world.level.LightLayer;
 import org.joml.Matrix4f;
 import org.joml.Vector2f;
 
+//TODO: check Satin API changes for 1.20.1 -> 1.21.1 porting, or implement non Satin API solution
 //public class TwoDimensionalShaders implements PostWorldRenderCallback, ShaderEffectRenderCallback {
 //    public static final ResourceLocation PLANE_SHADERS_ID = ResourceLocation.fromNamespaceAndPath(TwoDimensional.MOD_ID, "shaders/post/plane_shaders.json");
 //    public static final TwoDimensionalShaders INSTANCE = new TwoDimensionalShaders();

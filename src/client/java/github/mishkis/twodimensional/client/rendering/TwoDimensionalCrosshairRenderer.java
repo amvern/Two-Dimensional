@@ -4,7 +4,6 @@ import github.mishkis.twodimensional.client.TwoDimensionalClient;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.MouseHandler;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 
 public class TwoDimensionalCrosshairRenderer {

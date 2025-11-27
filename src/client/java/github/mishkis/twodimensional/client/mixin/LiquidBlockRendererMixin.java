@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LiquidBlockRenderer.class)
-public class FluidRendererMixin {
+public class LiquidBlockRendererMixin {
     @Inject(method = "tesselate", at = @At("HEAD"), cancellable = true)
     private void cullFluids(BlockAndTintGetter world, BlockPos pos, VertexConsumer vertexConsumer, BlockState blockState, FluidState fluidState, CallbackInfo ci) {
         if (Plane.shouldCull(pos, TwoDimensionalClient.plane)) {
