@@ -10,7 +10,7 @@
   "icon": "assets/twodimensional/icon.png",
   "environment": "*",
   "entrypoints": {
-    "client": [
+    "client":[
       "github.mishkis.twodimensional.client.TwoDimensionalClient"
     ],
     "main": [
@@ -27,6 +27,8 @@
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
-    "minecraft": "${minecraft_version}"
+    "minecraft": "${minecraft_version}",
+    "iris": "*",
+    "sodium": "*"
   }
 }
