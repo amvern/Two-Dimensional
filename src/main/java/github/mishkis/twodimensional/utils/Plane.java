@@ -83,7 +83,7 @@ public class Plane {
     public static boolean shouldCull(BlockPos blockPos, Plane plane) {
         if (plane != null) {
             double dist = plane.sdf(blockPos.getCenter());
-            return dist <= Plane.CULL_DIST || dist > 32;
+            return dist <= Plane.CULL_DIST;
         }
         return false;
     }
