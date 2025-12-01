@@ -14,7 +14,8 @@
     "LocalPlayerMixin",
     "MouseHandlerMixin",
     "MultiPlayerGameModeMixin",
-    "OptionsMixin"
+    "OptionsMixin",
+    "sodium.SmoothLightPipelineMixin"
   ],
   "injectors": {
     "defaultRequire": 1
