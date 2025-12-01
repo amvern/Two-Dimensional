@@ -58,8 +58,9 @@ public abstract class EntityMixin {
         }
     }
 
-    @Inject(method = "shouldRender(DDD)Z", at = @At("HEAD"), cancellable = true)
-    public void disableRenderingOutsidePlane(CallbackInfoReturnable<Boolean> cir) {
-        cir.setReturnValue(!Plane.shouldCull(this.blockPosition(), TwoDimensionalClient.plane));
-    }
+    //TODO: decide if we want to keep entity rendering outside of plane
+//    @Inject(method = "shouldRender(DDD)Z", at = @At("HEAD"), cancellable = true)
+//    public void disableRenderingOutsidePlane(CallbackInfoReturnable<Boolean> cir) {
+//        cir.setReturnValue(!Plane.shouldCull(this.blockPosition(), TwoDimensionalClient.plane));
+//    }
 }

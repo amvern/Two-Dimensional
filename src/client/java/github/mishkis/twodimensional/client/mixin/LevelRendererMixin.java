@@ -20,20 +20,20 @@ import net.minecraft.world.level.block.state.BlockState;
 @Mixin(LevelRenderer.class)
 public class LevelRendererMixin {
 
-    @ModifyExpressionValue(
-            method = "renderLevel",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/chunk/SectionRenderDispatcher$CompiledSection;getRenderableBlockEntities()Ljava/util/List;")
-    )
-    private List<BlockEntity> cullBlockEntites(List<BlockEntity> original) {
-        Plane plane = TwoDimensionalClient.plane;
-        if (plane != null) {
-            original = original.stream().filter(blockEntity ->
-                    !Plane.shouldCull(blockEntity.getBlockPos(), plane))
-                    .toList();
-        }
-
-        return original;
-    }
+//    @ModifyExpressionValue(
+//            method = "renderLevel",
+//            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/chunk/SectionRenderDispatcher$CompiledSection;getRenderableBlockEntities()Ljava/util/List;")
+//    )
+//    private List<BlockEntity> cullBlockEntites(List<BlockEntity> original) {
+//        Plane plane = TwoDimensionalClient.plane;
+//        if (plane != null) {
+//            original = original.stream().filter(blockEntity ->
+//                    !Plane.shouldCull(blockEntity.getBlockPos(), plane))
+//                    .toList();
+//        }
+//
+//        return original;
+//    }
 
     @Inject(method = "renderHitOutline", at = @At(value = "HEAD"), cancellable = true)
     private void disableCulledBlockOutline(PoseStack matrices, VertexConsumer vertexConsumer, Entity entity, double cameraX, double cameraY, double cameraZ, BlockPos pos, BlockState state, CallbackInfo ci) {
@@ -47,10 +47,5 @@ public class LevelRendererMixin {
 //    private boolean disableChunkCulling(boolean value) {
 //        return value && TwoDimensionalClient.plane == null;
 //    }
-
-
-
-
-
 
 }
