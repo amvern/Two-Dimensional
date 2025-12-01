@@ -31,6 +31,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 //        }
 //    }
 //}
+//}
 //
 //        BlockState blockState = world.getBlockState(pos.offset(side));
 //        if (!blockState.isFullCube(world, pos.offset(side))) {

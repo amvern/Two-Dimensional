@@ -49,6 +49,7 @@ dependencies {
 
     modImplementation "maven.modrinth:iris:${iris_version}"
     modImplementation "maven.modrinth:sodium:${sodium_version}"
+
 }
 
 processResources {
