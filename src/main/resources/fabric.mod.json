@@ -20,15 +20,18 @@
   "mixins": [
     "twodimensional.mixins.json",
     {
-      "config": "twodimensional.client.mixins.json",
+      "config": "twodimensional.client.vanilla.mixins.json",
       "environment": "client"
+    },
+    {
+      "config": "twodimensional.client.sodiumcompat.mixins.json",
+      "environment": "client",
+      "mods": ["sodium"]
     }
   ],
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
-    "minecraft": "${minecraft_version}",
-    "iris": "*",
-    "sodium": "*"
+    "minecraft": "${minecraft_version}"
   }
 }

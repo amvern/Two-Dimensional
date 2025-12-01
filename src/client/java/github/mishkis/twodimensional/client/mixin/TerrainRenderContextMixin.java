@@ -13,13 +13,13 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 // Injecting into fabric is kinda junk
-//@Mixin(TerrainRenderContext.class)
-//public class TerrainRenderContextMixin {
-//    // culls blocks like tall grass which get through the initial cull phase in BlockMixin
-//    @Inject(method = "tessellateBlock", at = @At("HEAD"), cancellable = true)
-//    public void cullBlocks(BlockState blockState, BlockPos blockPos, BakedModel model, PoseStack matrixStack, CallbackInfo ci) {
-//        if (Plane.shouldCull(blockPos, TwoDimensionalClient.plane)) {
-//            ci.cancel();
-//        }
-//    }
-//}
+@Mixin(TerrainRenderContext.class)
+public class TerrainRenderContextMixin {
+    // culls blocks like tall grass which get through the initial cull phase in BlockMixin
+    @Inject(method = "tessellateBlock", at = @At("HEAD"), cancellable = true)
+    public void cullBlocks(BlockState blockState, BlockPos blockPos, BakedModel model, PoseStack matrixStack, CallbackInfo ci) {
+        if (Plane.shouldCull(blockPos, TwoDimensionalClient.plane)) {
+            ci.cancel();
+        }
+    }
+}

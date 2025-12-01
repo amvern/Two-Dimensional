@@ -1,5 +1,6 @@
-package github.mishkis.twodimensional.client.mixin;
+package github.mishkis.twodimensional.client.mixin.sodium;
 
+import github.mishkis.twodimensional.client.TwoDimensionalClient;
 import github.mishkis.twodimensional.utils.Plane;
 import net.caffeinemc.mods.sodium.client.model.color.ColorProvider;
 import net.caffeinemc.mods.sodium.client.render.chunk.compile.buffers.ChunkModelBuilder;
@@ -18,8 +19,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import github.mishkis.twodimensional.client.TwoDimensionalClient;
 
 @Mixin(DefaultFluidRenderer.class)
 public class DefaultFluidRendererMixin {
@@ -45,7 +44,6 @@ public class DefaultFluidRendererMixin {
             ci.cancel();
         }
     }
-
 
     /**
      * Force rendering of fluid sides that would otherwise be culled

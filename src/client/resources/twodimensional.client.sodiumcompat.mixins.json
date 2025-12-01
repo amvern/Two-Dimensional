@@ -1,0 +1,25 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "github.mishkis.twodimensional.client.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "sodium.BlockOcclusionCacheMixin",
+    "sodium.BlockRendererMixin",
+    "CameraMixin",
+    "sodium.DefaultFluidRendererMixin",
+    "EntityMixin",
+    "InputMixin",
+    "LevelRendererMixin",
+    "LocalPlayerMixin",
+    "MouseHandlerMixin",
+    "MultiPlayerGameModeMixin",
+    "OptionsMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}

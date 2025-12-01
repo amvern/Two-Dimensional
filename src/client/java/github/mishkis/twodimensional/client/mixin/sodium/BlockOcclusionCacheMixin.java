@@ -1,4 +1,4 @@
-package github.mishkis.twodimensional.client.mixin;
+package github.mishkis.twodimensional.client.mixin.sodium;
 
 import github.mishkis.twodimensional.client.TwoDimensionalClient;
 import github.mishkis.twodimensional.utils.Plane;
