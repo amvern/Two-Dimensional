@@ -34,7 +34,7 @@ public abstract class SmoothLightPipelineMixin {
     private void propagatePlaneLighting(BlockPos pos, QuadLightData out) {
         int maxSky = 0;
         int maxBlock = 0;
-        float ao = 1f;
+        float ao = 0.5f;
 
         for (int dx = -1; dx <= 1; dx++) {
             for (int dy = -1; dy <= 1; dy++) {
