@@ -8,7 +8,7 @@
     "LocateCommandMixin",
     "PlayerMixin",
     "ServerGamePacketListenerImplMixin",
-    "ServerPlayerEntityMixin"
+    "ServerPlayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

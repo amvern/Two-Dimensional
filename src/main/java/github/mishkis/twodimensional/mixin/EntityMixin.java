@@ -62,7 +62,7 @@ public abstract class EntityMixin implements EntityPlaneGetterSetter {
     public void moveRelative(float speed, Vec3 movementInput, CallbackInfo ci) {
         if (twoDimensional$getPlane() != null) {
             // convert z movement into movement in direction of yaw
-            double planeYaw = twoDimensional$getPlane().getYaw() * Mth.RAD_TO_DEG;
+            double planeYaw = twoDimensional$getPlane().getYaw();
             movementInput = new Vec3(movementInput.x + movementInput.z * Mth.sign(this.getYRot() - 180 - planeYaw), movementInput.y, 0.);
             this.setDeltaMovement(this.getDeltaMovement().add(getInputVector(movementInput, speed, (float) (planeYaw))));
             ci.cancel();

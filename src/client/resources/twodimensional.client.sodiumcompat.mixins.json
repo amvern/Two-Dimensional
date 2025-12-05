@@ -4,8 +4,6 @@
   "package": "github.mishkis.twodimensional.client.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "sodium.BlockOcclusionCacheMixin",
-    "sodium.BlockRendererMixin",
     "CameraMixin",
     "sodium.DefaultFluidRendererMixin",
     "EntityMixin",

@@ -3,6 +3,8 @@ package github.mishkis.twodimensional.mixin;
 import com.mojang.authlib.GameProfile;
 import github.mishkis.twodimensional.TwoDimensional;
 import github.mishkis.twodimensional.access.EntityPlaneGetterSetter;
+import github.mishkis.twodimensional.network.InteractionLayerHolder;
+import github.mishkis.twodimensional.network.LayerMode;
 import github.mishkis.twodimensional.utils.Plane;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -19,10 +21,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 @Mixin(ServerPlayer.class)
-public abstract class ServerPlayerEntityMixin extends Player {
+public abstract class ServerPlayerMixin extends Player implements InteractionLayerHolder {
     @Shadow public abstract ServerLevel serverLevel();
+    private LayerMode currentLayer = LayerMode.BASE;
 
-    public ServerPlayerEntityMixin(Level world, BlockPos pos, float yaw, GameProfile gameProfile) {
+    public ServerPlayerMixin(Level world, BlockPos pos, float yaw, GameProfile gameProfile) {
         super(world, pos, yaw, gameProfile);
     }
 
@@ -48,5 +51,15 @@ public abstract class ServerPlayerEntityMixin extends Player {
             args.set(1, (int) intersectPoint.x);
             args.set(2, (int) intersectPoint.z);
         }
+    }
+
+    @Override
+    public void setInteractionLayer(LayerMode mode) {
+        this.currentLayer = mode;
+    }
+
+    @Override
+    public LayerMode getInteractionLayer() {
+        return currentLayer;
     }
 }

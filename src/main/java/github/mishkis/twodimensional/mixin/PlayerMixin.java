@@ -1,6 +1,8 @@
 package github.mishkis.twodimensional.mixin;
 
 import github.mishkis.twodimensional.access.EntityPlaneGetterSetter;
+import github.mishkis.twodimensional.network.InteractionLayerHolder;
+import github.mishkis.twodimensional.network.LayerMode;
 import github.mishkis.twodimensional.utils.Plane;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -9,6 +11,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.AABB;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -25,11 +28,21 @@ public abstract class PlayerMixin extends LivingEntity {
     @Inject(method = "blockActionRestricted", at = @At("HEAD"), cancellable = true)
     private void disableBlockBreakingOutsidePlane(Level world, BlockPos pos, GameType gameMode, CallbackInfoReturnable<Boolean> cir) {
         Plane plane = ((EntityPlaneGetterSetter) this).twoDimensional$getPlane();
-        if (plane != null) {
-            double dist = plane.sdf(pos.getCenter());
-            if (dist <= Plane.CULL_DIST || dist >= 1.8) {
-                cir.setReturnValue(true);
-            }
+        if (plane == null) return;
+
+        double dist = plane.sdf(pos.getCenter());
+        boolean isOnPlane = pos.getCenter().z == plane.getOffset().z;
+
+        if (this instanceof InteractionLayerHolder holder) {
+            LayerMode mode = holder.getInteractionLayer();
+
+            boolean cancel = switch (mode) {
+                case BASE -> !isOnPlane;
+                case FACE_AWAY -> Plane.shouldCull(pos, plane) || dist >= 1.8 || isOnPlane;
+                case FACE_CAMERA -> dist >= 1.8 || isOnPlane || Plane.shouldCull(new BlockPos(pos.getX(), pos.getY(), pos.getZ() + 1), plane);
+            };
+
+            if (cancel) cir.setReturnValue(true);
         }
     }
 

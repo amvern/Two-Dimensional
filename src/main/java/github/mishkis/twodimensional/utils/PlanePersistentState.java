@@ -31,8 +31,6 @@ public class PlanePersistentState extends SavedData {
             playerNbt.putDouble("offset.x", plane.getOffset().x);
             playerNbt.putDouble("offset.z", plane.getOffset().z);
 
-            playerNbt.putDouble("yaw", plane.getYaw());
-
             playersNbt.put(uuid.toString(), playerNbt);
         }));
         nbt.put("players", playersNbt);

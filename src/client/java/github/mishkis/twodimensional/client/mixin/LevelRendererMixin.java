@@ -35,10 +35,29 @@ public class LevelRendererMixin {
         return original;
     }
 
+    /**
+     * disableCulledBlockOutline w/ shouldCancelOutline ensure block outlines are only visible for interactable blocks within current interact layer
+     */
     @Inject(method = "renderHitOutline", at = @At(value = "HEAD"), cancellable = true)
     private void disableCulledBlockOutline(PoseStack matrices, VertexConsumer vertexConsumer, Entity entity, double cameraX, double cameraY, double cameraZ, BlockPos pos, BlockState state, CallbackInfo ci) {
-        if (Plane.shouldCull(pos, TwoDimensionalClient.plane)) {
+        Plane plane = TwoDimensionalClient.plane;
+        if(plane == null) return;
+
+        if(shouldCancelOutline(pos, plane)) {
             ci.cancel();
+        }
+    }
+
+    private boolean shouldCancelOutline(BlockPos pos, Plane plane) {
+        double dist = plane.sdf(pos.getCenter());
+        boolean isOnPlane = pos.getCenter().z == plane.getOffset().z;
+
+        if (TwoDimensionalClient.faceAway.isDown()) {
+            return (Plane.shouldCull(pos, plane) || dist >= 1.8 || isOnPlane);
+        } else if (TwoDimensionalClient.faceCamera.isDown()) {
+            return dist >= 1.8 || isOnPlane;
+        } else {
+            return !isOnPlane;
         }
     }
 

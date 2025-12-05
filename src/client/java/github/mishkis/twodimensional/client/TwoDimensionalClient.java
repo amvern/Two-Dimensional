@@ -3,6 +3,8 @@ package github.mishkis.twodimensional.client;
 import github.mishkis.twodimensional.TwoDimensional;
 import github.mishkis.twodimensional.access.EntityPlaneGetterSetter;
 import github.mishkis.twodimensional.client.rendering.TwoDimensionalCrosshairRenderer;
+import github.mishkis.twodimensional.network.InteractionLayerPayload;
+import github.mishkis.twodimensional.network.LayerMode;
 import github.mishkis.twodimensional.utils.Plane;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -13,12 +15,18 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.world.phys.Vec3;
 import org.lwjgl.glfw.GLFW;
 
-
 public class TwoDimensionalClient implements ClientModInitializer {
     public static Plane plane = null;
-    public static KeyMapping turnedAround = KeyBindingHelper.registerKeyBinding(new KeyMapping(
-            "key.twodimensional.turn_around",
+    private LayerMode lastMode = LayerMode.BASE;
+    public static KeyMapping faceAway = KeyBindingHelper.registerKeyBinding(new KeyMapping(
+            "key.twodimensional.face_away",
             GLFW.GLFW_KEY_B,
+            "keyGroup.twodimensional"
+    ));
+
+    public static KeyMapping faceCamera = KeyBindingHelper.registerKeyBinding(new KeyMapping(
+            "key.twodimensional.face_camera",
+            GLFW.GLFW_KEY_H,
             "keyGroup.twodimensional"
     ));
 
@@ -48,6 +56,20 @@ public class TwoDimensionalClient implements ClientModInitializer {
                 Minecraft.getInstance().mouseHandler.grabMouse();;
             }
         }));
+
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            if (client.player == null || client.level == null || client.getConnection() == null) return;
+
+            LayerMode mode = TwoDimensionalClient.faceAway.isDown() ? LayerMode.FACE_AWAY
+                    : TwoDimensionalClient.faceCamera.isDown() ? LayerMode.FACE_CAMERA
+                    : LayerMode.BASE;
+
+            if (mode != lastMode) {
+                lastMode = mode;
+                ClientPlayNetworking.send(new InteractionLayerPayload(mode));
+            }
+        });
+
 
         TwoDimensionalCrosshairRenderer.intialize();
     }
