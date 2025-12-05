@@ -45,7 +45,7 @@ public class TwoDimensional implements ModInitializer {
         double z = player.getBlockZ() + 0.5;
         double yaw = 0.0;
 
-        final Plane plane = new Plane(new Vec3(x, 0, z), yaw);
+        final Plane plane = new Plane(new Vec3(x, 0, z));
         PlanePersistentState.setPlayerPlane(player, x, z, yaw);
 
         server.execute(() -> {

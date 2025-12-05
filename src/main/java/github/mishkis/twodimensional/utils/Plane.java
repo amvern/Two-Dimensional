@@ -18,9 +18,9 @@ public class Plane {
     private Vec3 normal;
     private double slope;
 
-    public Plane(Vec3 offset, double yaw) {
+    public Plane(Vec3 offset) {
         this.offset = offset;
-        this.yaw = yaw;
+        this.yaw = 0;
 
         this.slope = Math.tan(yaw);
         updateValues();

@@ -45,9 +45,7 @@ public class PlanePersistentState extends SavedData {
         CompoundTag playersNbt = nbt.getCompound("players");
         playersNbt.getAllKeys().forEach(key -> {
             Plane plane = new Plane(
-                    new Vec3(playersNbt.getCompound(key).getDouble("offset.x"), 0, playersNbt.getCompound(key).getDouble("offset.z")),
-                    playersNbt.getCompound(key).getDouble("yaw")
-            );
+                    new Vec3(playersNbt.getCompound(key).getDouble("offset.x"), 0, playersNbt.getCompound(key).getDouble("offset.z")));
             state.players.put(UUID.fromString(key), plane);
         });
         return state;
@@ -86,6 +84,6 @@ public class PlanePersistentState extends SavedData {
     public static void setPlayerPlane(Player player, double x, double z, double yaw) {
         PlanePersistentState serverState = getServerState(player.level().getServer());
 
-        serverState.players.put(player.getUUID(), new Plane(new Vec3(x, 0, z), yaw));
+        serverState.players.put(player.getUUID(), new Plane(new Vec3(x, 0, z)));
     }
 }
