@@ -70,7 +70,6 @@ public class TwoDimensionalClient implements ClientModInitializer {
             }
         });
 
-
-        TwoDimensionalCrosshairRenderer.intialize();
+        TwoDimensionalCrosshairRenderer.initialize();
     }
 }

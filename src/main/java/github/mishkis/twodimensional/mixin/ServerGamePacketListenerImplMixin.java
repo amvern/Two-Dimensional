@@ -19,19 +19,20 @@ import net.minecraft.world.phys.Vec3;
 @Mixin(ServerGamePacketListenerImpl.class)
 public class ServerGamePacketListenerImplMixin {
     @Shadow public ServerPlayer player;
+
     @Unique
     Vec3 TwoDimensional$intersectPoint;
 
-//     this is kinda jank
- @Inject(method = "teleport(DDDFFLjava/util/Set;)V", at = @At("HEAD"))
-    private void clampInput(double x, double y, double z, float yaw, float pitch, Set<RelativeMovement> flags, CallbackInfo ci) {
-        Plane plane = ((EntityPlaneGetterSetter) this.player).twoDimensional$getPlane();
-        if (plane != null) {
-            TwoDimensional$intersectPoint = plane.intersectPoint(new Vec3(x, y, z));
-        } else {
-            TwoDimensional$intersectPoint = new Vec3(x, y, z);
+    //     this is kinda jank
+    @Inject(method = "teleport(DDDFFLjava/util/Set;)V", at = @At("HEAD"))
+        private void clampInput(double x, double y, double z, float yaw, float pitch, Set<RelativeMovement> flags, CallbackInfo ci) {
+            Plane plane = ((EntityPlaneGetterSetter) this.player).twoDimensional$getPlane();
+            if (plane != null) {
+                TwoDimensional$intersectPoint = plane.intersectPoint(new Vec3(x, y, z));
+            } else {
+                TwoDimensional$intersectPoint = new Vec3(x, y, z);
+            }
         }
-    }
 
     @ModifyVariable(method = "teleport(DDDFFLjava/util/Set;)V", at = @At("HEAD"), ordinal = 0, argsOnly = true)
     private double clampX(double x) {

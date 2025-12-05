@@ -17,6 +17,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.logging.Logger;
 
 public class TwoDimensional implements ModInitializer {
@@ -36,7 +38,7 @@ public class TwoDimensional implements ModInitializer {
                 );
 
         @Override
-        public Type<? extends CustomPacketPayload> type() {
+        public @NotNull Type<? extends CustomPacketPayload> type() {
             return TYPE;
         }
     }
@@ -80,9 +82,13 @@ public class TwoDimensional implements ModInitializer {
                 InteractionLayerPayload.TYPE,
                 (payload, ctx) -> {
                     // Runs on the network thread; schedule on server thread
-                    ctx.server().execute(() -> {
-                        ((InteractionLayerHolder) ctx.player()).setInteractionLayer(payload.mode());
-                    });
+                    try {
+                        ctx.server().execute(() -> {
+                            ((InteractionLayerHolder) ctx.player()).setInteractionLayer(payload.mode());
+                        });
+                    } catch (Exception err) {
+                        TwoDimensional.LOGGER.info(err.getMessage());
+                    }
                 }
         );
     }

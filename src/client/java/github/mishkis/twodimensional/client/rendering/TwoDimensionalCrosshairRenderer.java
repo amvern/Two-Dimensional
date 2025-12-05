@@ -7,7 +7,7 @@ import net.minecraft.client.MouseHandler;
 import net.minecraft.resources.ResourceLocation;
 
 public class TwoDimensionalCrosshairRenderer {
-    public static void intialize() {
+    public static void initialize() {
         HudRenderCallback.EVENT.register(((guiGraphics, tickDelta) -> {
             if (TwoDimensionalClient.plane != null) {
                 MouseHandler mouse = Minecraft.getInstance().mouseHandler;

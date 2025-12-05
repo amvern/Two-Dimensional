@@ -55,7 +55,7 @@ public class LevelRendererMixin {
         if (TwoDimensionalClient.faceAway.isDown()) {
             return (Plane.shouldCull(pos, plane) || dist >= 1.8 || isOnPlane);
         } else if (TwoDimensionalClient.faceCamera.isDown()) {
-            return dist >= 1.8 || isOnPlane;
+            return dist >= 1.8 || isOnPlane || Plane.shouldCull(new BlockPos(pos.getX(), pos.getY(), pos.getZ() + 1), plane);
         } else {
             return !isOnPlane;
         }
