@@ -22,14 +22,3 @@ public record InteractionLayerPayload(LayerMode mode) implements CustomPacketPay
         return TYPE;
     }
 }
-
-
-
-
-
-
-
-
-
-
-

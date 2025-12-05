@@ -12,7 +12,12 @@ public class TwoDimensionalCrosshairRenderer {
             if (TwoDimensionalClient.plane != null) {
                 MouseHandler mouse = Minecraft.getInstance().mouseHandler;
                 int scaleFactor = Minecraft.getInstance().getWindow().getWidth()/guiGraphics.guiWidth();
-                guiGraphics.blit(ResourceLocation.withDefaultNamespace("textures/gui/sprites/hud/crosshair.png"), (int) (mouse.xpos()/scaleFactor) - 6, (int) (mouse.ypos()/scaleFactor) - 5, 0, 0, 15, 15, 15, 15);
+                guiGraphics.blit(
+                        ResourceLocation.withDefaultNamespace("textures/gui/icons.png"),
+                    (int) (mouse.xpos()/scaleFactor), // half of 16
+                        (int) (mouse.ypos()/scaleFactor), // half of 16
+                        0, 0, 1, 1, 1, 1
+                );
             }
         }));
     }
